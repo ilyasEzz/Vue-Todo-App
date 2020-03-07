@@ -101,7 +101,7 @@ export default {
 
   created() {
     let now = new Date();
-    now = `${now.getHours()}:${now.getMinutes()}`;
+    now = now.getTime();
     this.date = now;
   },
   computed: {
@@ -109,6 +109,20 @@ export default {
       return this.todos.filter(todo => {
         return todo.text.match(this.search);
       });
+    }
+  },
+  watch: {
+    todos: {
+      handler() {
+        this.$emit("todos-updated", this.todos);
+      },
+      deep: true
+    }
+  },
+  mounted() {
+    let storedTodos = localStorage.getItem("todos");
+    if (storedTodos) {
+      this.todos = JSON.parse(storedTodos);
     }
   }
 };

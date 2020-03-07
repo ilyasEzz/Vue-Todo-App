@@ -13,7 +13,8 @@ export default {
   props: ["todos"],
   data() {
     return {
-      title: ""
+      title: "",
+      todosCounter: 0
     };
   },
   methods: {
@@ -28,6 +29,7 @@ export default {
         };
 
         this.$emit("add-todo", newTodo);
+        this.todosCounter++;
         this.title = "";
       }
     }

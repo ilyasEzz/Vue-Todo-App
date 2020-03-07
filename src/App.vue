@@ -5,10 +5,11 @@
         <i class="material-icons">add</i>
       </button>
     </div>
-    <!-- Required to render instances of TodosClass -->
-    <Todos />
 
-    <div ref="container" class="row"></div>
+    <div ref="container" class="row">
+      <!-- Required to render instances of TodosClass -->
+      <Todos v-on:todos-updated="locStorage" />
+    </div>
   </div>
 </template>
 
@@ -35,6 +36,9 @@ export default {
 
       TodosInstance.$mount();
       this.$refs.container.appendChild(TodosInstance.$el);
+    },
+    locStorage(todos) {
+      console.log(todos);
     }
   }
 };
