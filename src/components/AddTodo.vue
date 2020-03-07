@@ -22,8 +22,9 @@ export default {
       if (this.title !== "") {
         const newTodo = {
           id: this.todos.length,
-          title: this.title,
-          completed: false
+          text: this.title,
+          completed: false,
+          date: new Date()
         };
 
         this.$emit("add-todo", newTodo);

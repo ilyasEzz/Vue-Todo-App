@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container">
     <div class="fixed-action-btn">
-      <button @click="onClick" class="btn-floating btn-large waves-effect waves-light blue">
+      <button @click="createTodo" class="btn-floating btn-large waves-effect waves-light blue">
         <i class="material-icons">add</i>
       </button>
     </div>
@@ -29,10 +29,9 @@ export default {
   },
 
   methods: {
-    onClick() {
-      var TodosClass = Vue.extend(Todos);
-      var TodosInstance = new TodosClass();
-      TodosInstance.$slots.default = ["Click me!"];
+    createTodo() {
+      let TodosClass = Vue.extend(Todos);
+      let TodosInstance = new TodosClass();
 
       TodosInstance.$mount();
       this.$refs.container.appendChild(TodosInstance.$el);

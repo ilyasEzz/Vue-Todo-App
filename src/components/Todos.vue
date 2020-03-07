@@ -1,7 +1,8 @@
 <template >
-  <div class="col m6 s12" v-if="show">
+  <div class="col m6 s12 p-0" v-if="show">
     <div class="card" v-bind:style="{borderLeft: '1rem solid '+ color}">
       <div class="card-content">
+        <!-- Edit Todo Name -->
         <div v-if="edit">
           <form @submit.prevent="edit = false">
             <input type="text" v-model="name" name="title" placeholder="Add Todo..." />
@@ -11,31 +12,26 @@
           </form>
         </div>
         <div v-else>
+          <!-- Name and Date -->
           <blockquote class>{{ date }}</blockquote>
-
           <span @click="edit = true" class="card-title title-util center-align">{{name}}</span>
         </div>
-
+        <!-- AddTodo and TodoItems   -->
         <AddTodo v-bind:todos="todos" v-on:add-todo="addTodo" />
         <div>
-          <div v-bind:key="todo.id" v-for="todo in todos">
+          <div v-bind:key="todo.id" v-for="todo in filteredTodos">
             <TodoItem v-bind:todo="todo" v-on:del-todo="deleteTodo" />
           </div>
         </div>
-        <div class="actions">
-          <button class="btn-floating btn waves-effect waves-light red mx-2" @click="show = false">
-            <i class="material-icons">delete</i>
-          </button>
-          <button class="btn-floating btn waves-effect waves-light red mx-2" @click="show = false">
-            <i class="material-icons">palette</i>
-          </button>
-          <button class="btn-floating btn waves-effect waves-light red mx-2" @click="show = false">
-            <i class="material-icons">sort</i>
-          </button>
-          <button class="btn-floating btn waves-effect waves-light red mx-2" @click="show = false">
-            <i class="material-icons">delete</i>
-          </button>
-        </div>
+        <!-- Actions -->
+        <Actions
+          :search="search"
+          v-on:searching="searching"
+          v-on:del="show = false"
+          v-on:color-updated="updateColor"
+          v-on:sorting="sorting"
+        />
+        <button class="btn" @click="sorting">sort</button>
       </div>
     </div>.
   </div>
@@ -44,18 +40,16 @@
 <script>
 import AddTodo from "./AddTodo";
 import TodoItem from "./TodoItem";
+import Actions from "./Actions.vue";
 
 export default {
   name: "Todos",
   components: {
     TodoItem,
-    AddTodo
+    AddTodo,
+    Actions
   },
-  created() {
-    let now = new Date();
-    now = `${now.getHours()}:${now.getMinutes()}`;
-    this.date = now;
-  },
+
   data() {
     return {
       edit: true,
@@ -63,7 +57,8 @@ export default {
       date: "",
       name: "New Todo",
       color: "#2196F3",
-      todos: []
+      todos: [],
+      search: ""
     };
   },
   methods: {
@@ -72,28 +67,53 @@ export default {
     },
     addTodo(item) {
       this.todos = [...this.todos, item];
+    },
+    updateColor(newColor) {
+      this.color = newColor;
+    },
+    searching(currentSearch) {
+      this.search = currentSearch;
+    },
+    // Comparaison Methods
+    compareByText(a, b) {
+      if (a.text < b.text) return -1;
+      if (a.text > b.text) return 1;
+      return 0;
+    },
+    compareByCompletion(a, b) {
+      if (a.completed === false && b.completed === true) return 1;
+      if (a.completed === true && b.completed === false) return -1;
+      return 0;
+    },
+    compareByDate(a, b) {
+      if (a.date.getTime() < b.date.getTime()) return -1;
+      if (a.date.getTime() > b.date.getTime()) return 1;
+      return 0;
+    },
+    sorting(sortBy) {
+      if (sortBy === "text") this.todos.sort(this.compareByText);
+      else if (sortBy === "date") this.todos.sort(this.compareByDate);
+      else if (sortBy === "completion") {
+        this.todos.sort(this.compareByCompletion);
+      }
+    }
+  },
+
+  created() {
+    let now = new Date();
+    now = `${now.getHours()}:${now.getMinutes()}`;
+    this.date = now;
+  },
+  computed: {
+    filteredTodos() {
+      return this.todos.filter(todo => {
+        return todo.text.match(this.search);
+      });
     }
   }
 };
 </script>
 
-<style scoped>
-blockquote {
-  display: inline;
-  padding-right: 10px;
-  background-color: #f4f4f4;
-  margin-right: 1rem;
-}
-.date {
-  color: white;
-  background-color: dodgerblue;
-  display: inline-block;
-  padding: 10px;
-  border-radius: 50%;
-}
-
-.title-util {
-  display: inline !important;
-  cursor: pointer;
-}
+<style >
+@import "../assets/css/Todos.css";
 </style>

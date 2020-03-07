@@ -1,0 +1,44 @@
+.dropdown {
+  position: absolute;
+  background-color: #f4f4f4;
+
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  border-radius: 1rem;
+}
+
+.dropdown p {
+  color: #333;
+  padding-right: 100px;
+}
+
+.dropdown p label span {
+  width: 2rem;
+}
+
+.sort-form {
+  display: inline;
+}
+
+.color-item {
+  border: none;
+  border-radius: 2px;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  padding: 8px;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s ease-out;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}

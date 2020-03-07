@@ -11,7 +11,7 @@
     <div v-else class="row">
       <label class="col l9 m7 s7">
         <input type="checkbox" @change="markComplete" />
-        <span v-bind:class="{'is-completed':todo.completed}">{{todo.title}}</span>
+        <span :class="{'is-completed':todo.completed}">{{todo.text}}</span>
       </label>
       <div class="col l3 m5 s5">
         <button class="btn-floating btn waves-effect waves-light blue" @click="edit">
