@@ -16,6 +16,7 @@ export default {
   color: #42b883;
   font-size: 2.5rem;
   font-weight: 500;
+  cursor: default;
 }
 .nav {
   background-color: #35495e;

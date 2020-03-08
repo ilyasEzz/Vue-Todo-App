@@ -1,11 +1,14 @@
 <template>
   <div id="app" class>
-    <Navbar />
+    <Navbar class="mb-3" />
     <div class="container">
-      <div ref="container" class="row">
-        <!-- Required to render instances of TodosClass -->
-        <Todos v-on:todos-updated="locStorage" />
-      </div>
+      <transition name="fade" appear>
+        <div ref="container" class="row">
+          <!-- Required to render instances of TodosClass -->
+          <Todos v-on:todos-updated="locStorage" />
+          <Todos v-on:todos-updated="locStorage" />
+        </div>
+      </transition>
     </div>
 
     <div class="fixed-action-btn">
@@ -61,20 +64,5 @@ export default {
 
 <style>
 @import "./assets/css/materialize.css";
-* {
-  box-sizing: border-box;
-}
-
-form {
-  display: flex;
-}
-
-.is-completed {
-  text-decoration: line-through;
-  color: rgb(30, 161, 161);
-}
-
-.mx-2 {
-  margin: 0 0.5rem;
-}
+@import "./assets/css/App.css";
 </style>
