@@ -38,8 +38,18 @@ export default {
         },
         {
           color: true,
+          title: "green",
+          hex: "#42b883"
+        },
+        {
+          color: true,
           title: "indigo",
           hex: "#3f51b5"
+        },
+        {
+          color: true,
+          title: "black",
+          hex: "#333333"
         }
       ]
     };

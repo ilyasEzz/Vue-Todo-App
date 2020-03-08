@@ -33,6 +33,13 @@
   cursor: pointer;
 }
 
+.submit-sort {
+  background-color: #35495e;
+  color: #fff;
+  outline: none;
+  border: none;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: all 0.5s ease-out;
@@ -41,4 +48,8 @@
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+.btn-floating {
+  background-color: #35495e !important;
 }

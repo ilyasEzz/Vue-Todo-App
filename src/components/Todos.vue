@@ -5,7 +5,7 @@
         <!-- Edit Todo Name -->
         <div v-if="edit">
           <form @submit.prevent="edit = false">
-            <input type="text" v-model="name" name="title" placeholder="Add Todo..." />
+            <input type="text" v-model="name" name="title" placeholder="Edit Todo..." />
             <button type="submit" class="btn-floating btn waves-effect waves-light blue">
               <i class="material-icons">edit</i>
             </button>
@@ -13,7 +13,7 @@
         </div>
         <div v-else>
           <!-- Name and Date -->
-          <blockquote class>{{ date }}</blockquote>
+          <blockquote class>{{ date | natural-time }}</blockquote>
           <span @click="edit = true" class="card-title title-util center-align">{{name}}</span>
         </div>
         <!-- AddTodo and TodoItems   -->
@@ -31,7 +31,6 @@
           v-on:color-updated="updateColor"
           v-on:sorting="sorting"
         />
-        <button class="btn" @click="sorting">sort</button>
       </div>
     </div>.
   </div>
@@ -100,9 +99,7 @@ export default {
   },
 
   created() {
-    let now = new Date();
-    now = now.getTime();
-    this.date = now;
+    this.date = new Date();
   },
   computed: {
     filteredTodos() {
@@ -114,15 +111,13 @@ export default {
   watch: {
     todos: {
       handler() {
-        this.$emit("todos-updated", this.todos);
+        let todosCard = {
+          id: this.date.getTime(),
+          todos: this.todos
+        };
+        this.$emit("todos-updated", todosCard);
       },
       deep: true
-    }
-  },
-  mounted() {
-    let storedTodos = localStorage.getItem("todos");
-    if (storedTodos) {
-      this.todos = JSON.parse(storedTodos);
     }
   }
 };

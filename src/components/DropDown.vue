@@ -51,7 +51,7 @@
               <span>completion</span>
             </label>
           </p>
-          <input type="submit" value="sort" class="btn-small submit-sort" />
+          <input type="submit" value="sort" class="submit-sort" />
         </form>
       </div>
     </transition>

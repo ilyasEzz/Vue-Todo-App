@@ -2,7 +2,7 @@
   <div>
     <div v-if="editMode">
       <form @submit.prevent="edit">
-        <input type="text" v-model="todo.title" name="title" placeholder="Add Todo..." />
+        <input type="text" v-model="todo.title" name="title" placeholder="Edit Todo..." />
         <button type="submit" class="btn-floating btn waves-effect waves-light blue">
           <i class="material-icons">edit</i>
         </button>
