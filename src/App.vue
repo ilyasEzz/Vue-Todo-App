@@ -21,7 +21,6 @@
 
 <script>
 import Vue from "vue";
-
 import Todos from "./components/Todos";
 import Navbar from "./layout/Navbar";
 
@@ -49,12 +48,10 @@ export default {
       let todosIndex = this.storedTodos.findIndex(
         storedTodo => storedTodo.id === todos.id
       );
-
-      if (todosIndex >= 0) {
-        this.storedTodos[todosIndex] = todos;
-      } else {
-        this.storedTodos = [...this.storedTodos, todos];
-      }
+      // findIndex returns -1 if not founs
+      todosIndex >= 0
+        ? (this.storedTodos[todosIndex] = todos)
+        : (this.storedTodos = [...this.storedTodos, todos]);
 
       localStorage.setItem("storedTodos", this.storedTodos);
     }

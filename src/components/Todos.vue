@@ -122,7 +122,6 @@ export default {
   }
 };
 </script>
-
 <style >
 @import "../assets/css/Todos.css";
 </style>

@@ -5,7 +5,11 @@ Vue.config.productionTip = false;
 
 // Filters
 Vue.filter('natural-time', function(date) {
-  return `${date.getHours()}:${date.getMinutes()}`;
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+
+  if (minutes < 10) minutes = '0' + minutes;
+  return `${hours}:${minutes}`;
 });
 
 new Vue({
